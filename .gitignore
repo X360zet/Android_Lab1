@@ -1,0 +1,15 @@
+build/
+.gradle/
+*.iml
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.env
+.env.local

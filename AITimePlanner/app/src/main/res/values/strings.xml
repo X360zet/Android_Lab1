@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">AI Планировщик времени</string>
+
+    <!-- Навигация -->
+    <string name="nav_schedule">График</string>
+    <string name="nav_tasks">Задачи</string>
+    <string name="nav_planner">ИИ-планирование</string>
+    <string name="nav_profile">Профиль</string>
+
+    <!-- Экран графика -->
+    <string name="schedule_today">Сегодня</string>
+    <string name="schedule_free_time">Свободно: %1$s</string>
+    <string name="schedule_planned_time">Запланировано: %1$s</string>
+    <string name="schedule_empty">На этот день план пуст. Откройте вкладку «ИИ-планирование», чтобы собрать расписание.</string>
+    <string name="schedule_start">Начать</string>
+    <string name="schedule_finish">Завершить</string>
+    <string name="schedule_skip">Пропустить</string>
+    <string name="schedule_now_marker">Сейчас</string>
+
+    <!-- Задачи -->
+    <string name="tasks_title">Мои задачи</string>
+    <string name="tasks_add">Добавить задачу</string>
+    <string name="tasks_search_hint">Поиск по задачам</string>
+    <string name="tasks_filter_all">Все</string>
+    <string name="tasks_filter_active">Активные</string>
+    <string name="tasks_filter_done">Выполненные</string>
+    <string name="tasks_empty">Задач пока нет. Добавьте первую или дайте ИИ разложить цель на задачи.</string>
+    <string name="tasks_field_title">Название</string>
+    <string name="tasks_field_description">Описание</string>
+    <string name="tasks_field_estimate">Оценка длительности, мин</string>
+    <string name="tasks_field_priority">Приоритет</string>
+    <string name="tasks_field_category">Категория</string>
+    <string name="tasks_field_deadline">Срок (дедлайн)</string>
+    <string name="tasks_field_goal">Цель</string>
+    <string name="tasks_save">Сохранить</string>
+    <string name="tasks_delete">Удалить</string>
+    <string name="tasks_untitled">Без названия</string>
+
+    <!-- Приоритеты -->
+    <string name="priority_critical">Критичный</string>
+    <string name="priority_high">Высокий</string>
+    <string name="priority_medium">Средний</string>
+    <string name="priority_low">Низкий</string>
+
+    <!-- Категории -->
+    <string name="category_work">Работа</string>
+    <string name="category_study">Учёба</string>
+    <string name="category_health">Здоровье</string>
+    <string name="category_family">Семья</string>
+    <string name="category_home">Быт</string>
+    <string name="category_rest">Отдых</string>
+    <string name="category_personal">Личное</string>
+
+    <!-- ИИ-планирование -->
+    <string name="planner_title">ИИ-планирование</string>
+    <string name="planner_subtitle">Опишите цель или выберите задачи — ассистент оценит время, расставит приоритеты и встроит всё в ваш график.</string>
+    <string name="planner_goal_hint">Например: подготовить презентацию для клиента к пятнице и выучить 30 слов по испанскому</string>
+    <string name="planner_decompose">Разложить на задачи</string>
+    <string name="planner_generate">Построить план на %1$s</string>
+    <string name="planner_generating">ИИ строит план…</string>
+    <string name="planner_ai_source_remote">Облачная модель ИИ</string>
+    <string name="planner_ai_source_local">Локальный ИИ-движок (оффлайн)</string>
+    <string name="planner_suggestions">Предложения ассистента</string>
+    <string name="planner_apply">Применить план</string>
+    <string name="planner_applied">План применён: %1$d блоков на %2$s</string>
+    <string name="planner_replan">Перестроить остаток дня</string>
+    <string name="planner_replanned">График перестроен после изменений</string>
+    <string name="planner_warning_overload">Внимание: план превышает ваш доступный ресурс времени на %1$s.</string>
+    <string name="planner_insight_label">Инсайт</string>
+    <string name="planner_chat_ask">Спросить ассистента</string>
+    <string name="planner_chat_hint">Что вас беспокоит в расписании?</string>
+    <string name="planner_selected_tasks">Выбранные задачи (%1$d)</string>
+    <string name="planner_day_horizon">Горизонт: %1$s</string>
+    <string name="planner_day_1">1 день</string>
+    <string name="planner_day_3">3 дня</string>
+    <string name="planner_day_7">7 дней</string>
+
+    <!-- Профиль / биоритмы -->
+    <string name="profile_title">Профиль и биоритмы</string>
+    <string name="profile_onboarding_skip">Пропустить</string>
+    <string name="profile_wake">Подъём</string>
+    <string name="profile_sleep">Отбой</string>
+    <string name="profile_peak">Пик энергии</string>
+    <string name="profile_peak_morning">Утро</string>
+    <string name="profile_peak_afternoon">День</string>
+    <string name="profile_peak_evening">Вечер</string>
+    <string name="profile_focus_block">Длина фокус-блока, мин</string>
+    <string name="profile_break_duration">Длина перерыва, мин</string>
+    <string name="profile_daily_capacity">Ресурс рабочих часов в день</string>
+    <string name="profile_notifications">Уведомления-напоминания</string>
+    <string name="profile_save">Сохранить профиль</string>
+    <string name="profile_saved">Профиль сохранён</string>
+    <string name="profile_stats_title">Статистика времени</string>
+    <string name="profile_completion_rate">Доля выполненных задач</string>
+    <string name="profile_hours_planned">Часов запланировано</string>
+    <string name="profile_hours_spent">Часов затрачено</string>
+    <string name="profile_best_hours">Ваши лучшие часы</string>
+    <string name="profile_ai_advice">Рекомендации ИИ</string>
+
+    <!-- Уведомления -->
+    <string name="notif_channel_reminders">Напоминания о задачах</string>
+    <string name="notif_channel_reminders_desc">Уведомления о начале запланированных блоков</string>
+    <string name="notif_upcoming_title">Скоро: %1$s</string>
+    <string name="notif_upcoming_text">Начало через %1$d мин. Не забудьте подготовиться.</string>
+    <string name="notif_overdue_title">Просрочено: %1$s</string>
+    <string name="notif_overdue_text">Задача вышла за рамки плана. Перенести её?</string>
+
+    <!-- Общие -->
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="min_suffix">%1$d мин</string>
+    <string name="hour_suffix">%1$s ч</string>
+</resources>
