@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "goals",
-    indices = [Index("deadline"), Index("title")]
+    indices = [Index("deadlineIso"), Index("title")]
 )
 data class GoalEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
@@ -19,7 +19,7 @@ data class GoalEntity(
 
 @Entity(
     tableName = "tasks",
-    indices = [Index("status"), Index("priority"), Index("deadline"), Index("goalId")]
+    indices = [Index("status"), Index("priority"), Index("deadlineIso"), Index("goalId")]
 )
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
@@ -39,7 +39,7 @@ data class TaskEntity(
 
 @Entity(
     tableName = "schedule_blocks",
-    indices = [Index("start"), Index("taskId")]
+    indices = [Index("startIso"), Index("taskId")]
 )
 data class ScheduleBlockEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
@@ -53,7 +53,7 @@ data class ScheduleBlockEntity(
 )
 
 /** Сырое событие выполнения — используется ИИ для обучения оценок времени. */
-@Entity(tableName = "completion_events", indices = [Index("completedAt")])
+@Entity(tableName = "completion_events", indices = [Index("completedAtIso")])
 data class CompletionEventEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val taskTitle: String,
