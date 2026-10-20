@@ -15,13 +15,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Undo
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Unlock
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
@@ -74,7 +74,7 @@ fun ScheduleScreen(vm: ScheduleViewModel = hiltViewModel()) {
             TopAppBar(
                 title = { Text(if (state.date == java.time.LocalDate.now()) "Сегодня" else state.date.toString()) },
                 actions = {
-                    IconButton(onClick = { vm.shiftDay(-1) }) { Icon(Icons.AutoMirrored.Filled.Undo, "Предыдущий день") }
+                    IconButton(onClick = { vm.shiftDay(-1) }) { Icon(Icons.Filled.ChevronLeft, "Предыдущий день") }
                     TextButton(onClick = { if (state.date != java.time.LocalDate.now()) vm.selectToday() }) { Text("Сегодня") }
                     IconButton(onClick = { vm.shiftDay(1) }) { Icon(Icons.Filled.ChevronRight, "Следующий день") }
                 },

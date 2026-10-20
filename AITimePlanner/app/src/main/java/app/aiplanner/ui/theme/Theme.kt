@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 private val DeepBlue = Color(0xFF0E1B3D)
 private val Indigo = Color(0xFF3B5BDB)
 private val Teal = Color(0xFF0CA789)
+private val Violet = Color(0xFF7048E8)
 
 private val LightColors = lightColorScheme(
     primary = Indigo,
