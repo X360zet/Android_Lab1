@@ -20,12 +20,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Ключ OpenAI-совместимого API задаётся через local.properties (AI_PLANNER_API_KEY)
-        // или переменную окружения. Пустая строка => работает встроенный локальный планировщик.
-        val apiKey: String = rootProject.extra["aiPlannerApiKey"] as String
-        buildConfigField("String", "AI_API_KEY", "\"$apiKey\"")
-        buildConfigField("String", "AI_BASE_URL", "\"https://api.openai.com/v1/\"")
-        buildConfigField("String", "AI_MODEL", "\"gpt-4o-mini\"")
+        // Приложение работает полностью оффлайн: ИИ-движок живёт на устройстве.
+        buildConfigField("boolean", "REMOTE_AI_ENABLED", "false")
     }
 
     buildTypes {
@@ -43,18 +39,7 @@ android {
         }
     }
 
-    flavorDimensions += "env"
-    productFlavors {
-        create("demo") {
-            dimension = "env"
-            // Демо-режим: сетевые запросы к ИИ отключены, используется эвристика на устройстве
-            buildConfigField("boolean", "REMOTE_AI_ENABLED", "false")
-        }
-        create("prod") {
-            dimension = "env"
-            buildConfigField("boolean", "REMOTE_AI_ENABLED", "true")
-        }
-    }
+    // Приложение полностью оффлайн: единый ИИ-движок на устройстве, без flavor'ов.
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -109,14 +94,11 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.kotlinx)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
