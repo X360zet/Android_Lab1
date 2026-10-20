@@ -312,7 +312,7 @@ class HeuristicSchedulePlanner {
         estimates: Map<Long, Int> = emptyMap(),
     ): DayPlan {
         val futureKept = keptBlocks.filter { it.locked || it.end.isAfter(from) }
-        return planDay(
+        val res = planDay(
             date = from.toLocalDate(),
             tasks = remainingTasks,
             existing = futureKept,
@@ -321,6 +321,12 @@ class HeuristicSchedulePlanner {
             now = from,
             estimates = estimates,
         )
+        // Закреплённые будущие блоки (встречи/тренировки) возвращаем в плане как есть —
+        // они не пересоздаются алгоритмом, а лишь защищают интервалы.
+        val merged = (res.blocks + futureKept.filter { it.locked && !it.start.isBefore(from) })
+            .distinctBy { it.title + it.start }
+            .sortedBy { it.start }
+        return res.copy(blocks = merged)
     }
 
     // ------------------------------------------------------------------

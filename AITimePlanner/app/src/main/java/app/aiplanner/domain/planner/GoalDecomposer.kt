@@ -37,7 +37,7 @@ class GoalDecomposer {
             val perSession = min(60, max(15, ceilDiv(items * 2, sessions)))
             repeat(sessions.coerceAtMost(7)) { i ->
                 tasks += task(
-                    title = "Занятие ${i + 1}: $topicOf(text) — блок из $items элементов",
+                    title = "Занятие ${i + 1}: ${topicOf(text)} — блок из $items элементов",
                     minutes = perSession,
                     priority = if (i == 0) Priority.HIGH else Priority.MEDIUM,
                     category = TaskCategory.STUDY,

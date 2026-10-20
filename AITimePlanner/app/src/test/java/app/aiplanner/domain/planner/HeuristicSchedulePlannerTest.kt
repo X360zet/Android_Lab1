@@ -23,7 +23,7 @@ class HeuristicSchedulePlannerTest {
         dailyCapacityHours = 6.0,
     )
     private val date: LocalDate = LocalDate.of(2026, 10, 20)
-    private val morning = LocalDateTime.of(date.atTime(8, 0))
+    private val morning = date.atTime(8, 0)
 
     private fun task(id: Long, minutes: Int, priority: Priority = Priority.MEDIUM) = Task(
         id = id,
@@ -31,7 +31,7 @@ class HeuristicSchedulePlannerTest {
         estimatedMinutes = minutes,
         priority = priority,
         category = TaskCategory.WORK,
-        createdAt = morning.minusDays(1),
+        createdAt = morning.minusDays(1L),
     )
 
     @Test
