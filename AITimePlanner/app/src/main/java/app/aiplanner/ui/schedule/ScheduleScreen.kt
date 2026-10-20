@@ -22,7 +22,8 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Unlock
+import androidx.compose.material.icons.filled.LockOpen
+
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -172,7 +173,7 @@ private fun BlockRow(
             }
             if (block.type == BlockType.TASK) {
                 IconButton(onClick = onLock) {
-                    Icon(if (block.locked) Icons.Filled.Unlock else Icons.Filled.Lock, "Зафиксировать интервал")
+                    Icon(if (block.locked) Icons.Filled.LockOpen else Icons.Filled.Lock, "Зафиксировать интервал")
                 }
                 IconButton(onClick = onStart) { Icon(Icons.Filled.PlayArrow, "Начать") }
                 IconButton(onClick = onFinish) { Icon(Icons.Filled.Check, "Завершить") }

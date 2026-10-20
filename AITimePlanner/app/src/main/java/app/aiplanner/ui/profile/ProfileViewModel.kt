@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
@@ -37,22 +38,32 @@ class ProfileViewModel @Inject constructor(
     private val refresh = MutableStateFlow(0)
 
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    private val statsFlow: kotlinx.coroutines.flow.Flow<StatsSnapshot> =
+        refresh.flatMapLatest { _ -> flow { emit(statsSnapshot()) } }
+
     val state: StateFlow<ProfileUiState> = combine(
         settings.profile,
         repo.observeTasks(),
-        refresh.flatMapLatest { statsSnapshot() },
-    ) { profile, tasks, stats ->
-        val (eventsCount, best, ratios) = stats
+        statsFlow,
+    ) { profile: UserProfile, tasks: List<app.aiplanner.domain.model.Task>, stats: StatsSnapshot ->
+        val eventsCount = stats.events
+        val best: List<Int> = stats.best
+        val ratios: Map<String, Double> = stats.ratios
         val done = tasks.count { it.status.isFinished }
         val rate = if (tasks.isEmpty()) 0.0 else done.toDouble() / tasks.size
         val advice = buildList {
             if (rate in 0.01..0.6) add("Вы закрываете лишь ${(rate * 100).toInt()}% плана — снизьте дневной ресурс на 1 час или поднимите долю коротких задач.")
             if (rate > 0.85 && tasks.isNotEmpty()) add("Выполняется более 85% плана — можно ставить более амбициозные цели.")
             if (profile.breakMinutes < 10) add("Увеличите перерывы до 10–15 минут: короткие паузы не дают восстановиться attention-ресурсу.")
-            if (best.isNotEmpty()) add("Пик фактической продуктивности: ${best.joinToString(", ") { "%02d:00".format(it) }} — ставьте туда сложные задачи.")
-            val underestimated = ratios.filterValues { it > 1.2 }
+            if (best.isNotEmpty()) {
+                val hoursText = best.joinToString(separator = ", ") { hour: Int -> "%02d:00".format(hour) }
+                add("Пик фактической продуктивности: $hoursText — ставьте туда сложные задачи.")
+            }
+            val underestimated: Map<String, Double> = ratios.filterValues { value: Double -> value > 1.2 }
             if (underestimated.isNotEmpty()) {
-                add("Вы систематически недооцениваете время в категориях: ${underestimated.keys.joinToString()} (в среднем ×%.1f).".format(underestimated.values.average()))
+                val avg = underestimated.values.average()
+                val keys = underestimated.keys.joinToString(separator = ", ")
+                add("Вы систематически недооцениваете время в категориях: $keys (в среднем ×%.1f).".format(avg))
             }
             if (profile.dailyCapacityHours > 8) add("Ресурс ${profile.dailyCapacityHours.toInt()} ч/день выше реалистичного среднего — ИИ часто не сможет уместить план.")
             if (isEmpty()) add("Продолжайте отмечать выполнение задач — ИИ обучит оценки времени точнее.")
@@ -68,7 +79,7 @@ class ProfileViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ProfileUiState())
 
-    private data class StatsSnapshot(val events: Int, val best: List<Int>, val ratios: Map<String, Double>)
+    data class StatsSnapshot(val events: Int, val best: List<Int>, val ratios: Map<String, Double>)
 
     private suspend fun statsSnapshot(): StatsSnapshot {
         val events = repo.recentEvents(200).size
